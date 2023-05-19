@@ -1,0 +1,16 @@
+[mysqld]
+
+skip-name-resolve
+default_authentication_plugin = mysql_native_password
+
+server-id           = 2
+port                = 3307
+socket              = /var/run/mysqld/mysqld_slave.sock
+pid-file            = /var/run/mysqld/mysqld_slave.pid
+datadir             = /var/lib/mysql_slave
+log_error           = /var/log/mysql_slave/error_slave.log
+relay-log           = /var/log/mysql_slave/relay-bin
+relay-log-index     = /var/log/mysql_slave/relay-bin.index
+master-info-file    = /var/log/mysql_slave/master.info
+relay-log-info-file = /var/log/mysql_slave/relay-log.info
+read_only           = 1
