@@ -14,6 +14,11 @@ To run this virtual lab, you need to download:
 
 Once the above are downloaded, you need to run these commands:
 
+####Dockerfile
+To create an image, we used Dockerfile and specifically, you need to run the command
+```bash
+docker build -t mysql:latest
+```
 
 #### Create 2 MySQL containers with master-slave row-based replication 
 
