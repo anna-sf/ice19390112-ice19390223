@@ -1,0 +1,19 @@
+mysql>CREATE USER 'replica'@'%' IDENTIFIED WITH mysql_native_password BY 'abc123';
+mysql>GRANT REPLICATION SLAVE ON *.* TO 'replica'@'%';
+mysql>show grants for replica@'%';
+mysql>CHANGE MASTER TO
+	MASTER_HOST='master',
+	MASTER_USER='replica',
+	MASTER_PASSWORD='abc123',
+mysql>START SLAVE;
+mysql>CREATE DATABASE Students;
+mysql>SHOW DATABASES;
+mysql>USE Students;
+mysql>CREATE TABLE Students_Info (
+	AM int,
+	LastName varchar(255),
+	FirstName varchar(255),
+	Address varchar(255),
+	Semester int,
+	Passed_Subjects int,
+	Declared_Subjects int );
