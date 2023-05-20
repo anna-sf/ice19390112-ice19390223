@@ -48,20 +48,20 @@ docker exec slave sh -c "export MYSQL_PWD=abc123; mysql -u root mydb -d 'select 
 ```
 
 
-## Check Logs
+Check Logs
 In order to check the logs you can run these commands
 
 ```bash
 docker-compose logs (insert name or ID)
 ```
 
-##Start Container
+Start Container
 
 ```bash
 ./build.sh
 ```
 
-##Check which containers are running
+Check which containers are running
 
 ```bash
 docker-compose ps
