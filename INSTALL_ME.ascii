@@ -1,0 +1,28 @@
+Virtual Lab for MySQL Replicated
+================================
+Kostoulas Aggelos AM: 19390112, Sfakioti Anna AM: 19390223
+:doctype: book
+
+
+[dedication]
+This virtual lab was created for the subject of Cloud Computing
+---------------------------------------------------------------
+The cause of this Install_Me file is to give instructions to how you can install the virtual lab on your one computer
+
+
+[preface]
+What you need to donwload:
+--------------------------
+1.Oracle Virtual Box, latest release (optional)
+2.Ubuntu version 18.04
+3.Docker, latest release
+4.MySQL, version 8.0
+
+Note
+~~~~
+You can always run sudo apt-get install if the above are already downloaded.
+
+
+P.S.
+---
+You can find instructions on how to set up the virtual lab in READ_ME.md file
