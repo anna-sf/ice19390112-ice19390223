@@ -6,7 +6,6 @@ This virtual lab was created as the final project for the subject of Cloud Compu
 It was created in Ubuntu version 18.04, using Oracle's Virtual Box, and with the help of the latest release of Docker and MySQL.
 
 ## Run
-
 To run this virtual lab, you need to download:
 1.Ubuntu 18.04
 2.Latest release of Docker
