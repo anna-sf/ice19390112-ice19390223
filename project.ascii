@@ -1,0 +1,110 @@
+ΕΞΑΜΗΝΙΑΙΟ ΕΡΓΑΣΤΗΡΙΑΚΟ PROJECT ΥΠΟΛΟΓΙΣΤΙΚΗΣ ΝΕΦΟΥΣ ΚΑΙ ΥΠΗΡΕΣΙΩΝ 
+==================================================================
+Κωστούλας Άγγελος ΑΜ:19390112, Σφακιώτη Άννα ΑΜ:19390223
+:doctype: book
+
+
+[dedication]
+Εισαγωγή
+--------
+Σκοπός του συγκεκριμένου παραδοτέου είναι η εις βάθος επεξήγηση και ανάλυση της δημιουργίας και χρήσης του εικονικού εργαστηρίου που αναλάβαμε για την εκπόνηση της εργαστηριακής άσκησης του μαθήματος Υπολογιστική Νέφους και Υπηρεσιών, του 8ου εξαμήνου του Τμήματος Μηχανικών Πληροφορικής και Ηλεκτρονικών Υπολογιστών, στην Κατεύθυνση Ροής Δικτύων.
+
+[preface]
+Κεφάλαιο 1ο
+-----------
+Σε αυτό το κεφάλαιο θα γίνει μια εισαγωγή στο θεωρητικό κομμάτι του εικονικού μας εργαστηρίου. Με τον όρο replication αναφερόμαστε στην αντιγραφή δεδομένων από έναν διακομιστή βάσης δεδομένων MySQL (source) σε έναν ή περισσότερους διακομιστές βάσης δεδομένων MySQL (replicas), ενώ είναι ασύγχρονη μέθοδος. Τα replicas δεν χρειάζεται να είναι συνδεδεμένα μόνιμα για να λαμβάνουν ενημερώσεις από το αντίστοιχο source. Σκοπός μας λοιπόν ήταν η δημιορυγία ενός εικονικού εργαστηρίου το οποίο θα λειτουργεί με τα παραπάνω δεδομένα.
+Καταλήξαμε λοιπόν στην δημιουργία ενός Virtual Lab σε λοιγισμικό Ubuntu 18.04. Προχωρήσαμε αρχικά σε εγκατάσταση του Orcale VirtualBox, με σκοπό τη δημιουργία ενός virtual machine που θα μπορούσε να φιλοξενήσει το λογισμικό, και στη συνέχεια φροντίσαμε να εγκαταστήσουμε τις τελευταίες εκδόσεις των προγραμμάτων Docker και MySQL. Εφόσον τα παραπάνω είχαν πραγματοποιηθεί, και μετά από ελέγχους για τυχόν ενημερώσεις, προχωρήσαμε στην κατασκευή 2 νέων directories, ένα για τα αρχεία του master και ένα για τα αρχεία του slave. Στην προκειμένη περίπτωση, ο master θα λειτουργήσει ως source και ο slave θα λειτουργήσει ως replica. Σε αρυτά θα δυο directories συγγράψαμε τα .env και .cnf αρχεία και για τους δύο, ενώ επίσης συμπεριλάβαμε τα compose.yml και build.sh αρχεία για την δημιουργία του container. Παρακάτω, θα συμπεριληφθούν όλες οι εντολές που χρησιμοποιήθηκαν για το 'στήσιμο' του εικονικού εργαστηρίου.
+
+
+Κεφάλαιο 2ο
+-----------
+Σε αυτό το κεφάλαιο θα υπάρξει αναλυτική αναφορά τωνε ντολών που χρησιμοποιήθηκαν σε κάθε στάδιο εγκατάστασης-δημιουργίας του εικονικού εργαστηρίου:
+
+Εγκατάσταση Docker
+~~~~~~~~~~~~~~~~~
+1.sudo apt-get update 
+
+
+2.sudo apt-get install ca-certificates curl gnupg
+
+
+3.sudo install -m 0755 -d /etc/apt/keyrings
+
+
+4.curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+
+5.sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+
+6.echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable"
+  
+  
+7.sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+8.sudo apt-get update
+
+
+9.sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+Εγκατάσταση MySQL
+~~~~~~~~~~~~~~~~~
+1.sudo apt update
+
+2.sudo apt upgrade
+
+3.sudo apt install mysql-server
+
+Δημιουργία Dockerfile
+~~~~~~~~~~~~~~~~~~~~~
+1.docker build -t mysql:latest
+
+Δημιουργία Docker
+~~~~~~~~~~~~~~~~~
+1.mkdir mysql-master-slave
+
+
+2.cd mysql-master-slave
+
+
+git clone https://github.com/vbabak/docker-mysql-master-slave ./
+
+
+docker-compose up -d
+
+
+docker-compose ps
+
+
+docker-compose exec master bash
+
+
+mysql -u root -p
+
+
+Κεφάλαιο 3ο
+-----------
+Αυτό το κεφάλαιο θα λειτουργήσει σαν βιβλιογραφία. Θα αναφέρουμε επομένως τις πηγές μας, καθώς και τις ιστοσελίδες από τις οποίες αντλήσαμε τις απαραίτητες πληροφορίες.
+
+1. https://docs.docker.com/engine/install/ubuntu/
+
+
+2. https://hevodata.com/learn/installing-mysql-on-ubuntu-20-04/
+
+
+3. https://hackernoon.com/mysql-master-slave-replication-using-docker-3pp3u97
+
+
+4. https://sesamedisk.com/docker-mysql-master-slave-replication-with-docker/
+
+
+5. https://en.wikipedia.org/wiki/Multi-master_replication
+
+
+6. https://github.com/gritt/docker-mysql-replication
+
+
+7. https://dev.mysql.com/doc/mysql-replication-excerpt/8.0/en/replication.html
