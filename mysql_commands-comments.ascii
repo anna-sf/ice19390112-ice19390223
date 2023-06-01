@@ -1,1 +1,42 @@
+#The series of MySQL commands you provided are correct for setting up replication and creating a database with a table. Here's a breakdown of each command:
+mysql>CREATE USER 'replica'@'%' IDENTIFIED WITH mysql_native_password BY 'abc123';
+
+#This command creates a new user 'replica' with the password 'abc123' who can connect from any host ('%').
+mysql>GRANT REPLICATION SLAVE ON *.* TO 'replica'@'%';
+
+#This command grants replication slave privileges to the 'replica' user, allowing it to replicate data from the master server.
+mysql>show grants for replica@'%';
+
+#This command displays the granted privileges for the 'replica' user.
+mysql>CHANGE MASTER TO
+	MASTER_HOST='master',
+	MASTER_USER='replica',
+	MASTER_PASSWORD='abc123',
+
+#This command configures the replication master details, specifying the host as 'master', the replication user as 'replica', and the password as 'abc123'.
+mysql>START SLAVE;
+
+#This command starts the replication process, allowing the replica server to begin replicating data from the master.
+mysql>CREATE DATABASE Students;
+
+#This command creates a new database named 'Students'.
+mysql>SHOW DATABASES;
+
+#This command lists all the available databases.
+mysql>USE Students;
+
+#This command switches the current database context to 'Students', meaning that any subsequent table creation or manipulation commands will be applied to this database.
+mysql>CREATE TABLE Students_Info (
+	AM int,
+	LastName varchar(255),
+	FirstName varchar(255),
+	Address varchar(255),
+	Semester int,
+	Passed_Subjects int,
+	Declared_Subjects int );
+  
+  
+#This command creates a new table named 'Students_Info' within the 'Students' database. The table has several columns such as 'AM', 'LastName', 'FirstName', 'Address', 'Semester', 'Passed_Subjects', and 'Declared_Subjects', each with its respective data type.
+
+#Overall, these commands set up replication between the master and replica servers, create a database named 'Students', and define a table named 'Students_Info' within that database.
 
